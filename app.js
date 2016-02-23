@@ -11,6 +11,8 @@ var ingredients = require('./routes/ingredients')
 var order = require('./routes/order');
 var kitchen = require('./routes/kitchen');
 
+var mongoURI = process.env.PROD_MONGODB || 'mongodb://localhost/test';
+
 var app = express();
 
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
@@ -34,6 +36,6 @@ app.post('/ingredients/restock', ingredients.restock);
 app.post('/order/placeOrder', order.place);
 app.post('/kitchen/completeOrder', kitchen.completeOrder);
 
-mongoose.connect('mongodb://localhost/test');
+mongoose.connect(mongoURI);
 
 app.listen(3000);
